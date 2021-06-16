@@ -7,10 +7,10 @@
 
 브라우저의 기본 객체는 window라는 것은 window를 지정하거나 직접 지정하여 window의 모든 기능을 호출 할 수 있음을 의미합니다. 예를 들면 :
 
-	*window.alert ( "hello javatpoint");*
+	window.alert ( "hello javatpoint");
 다음과 같습니다.
 
-	* alert ( "hello javatpoint");*
+	alert ( "hello javatpoint");
 document, history, screen, navigator, location, innerHeight, innerWidth, 같은 창 개체 아래에 정의 된 많은 속성 (다른 개체)을 사용할 수 있습니다.
 
 참고 : 문서 객체는 html 문서를 나타냅니다. DOM (Document Object Model)을 형성합니다.
