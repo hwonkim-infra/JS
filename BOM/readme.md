@@ -57,4 +57,21 @@ Or,
 
 
 
+## JavaScript Screen Object
+JavaScript 화면 개체는 브라우저 화면의 정보를 보유합니다. 화면 너비, 높이, colorDepth, pixelDepth 등을 표시하는 데 사용할 수 있습니다.
 
+navigator 객체는 window 속성이므로 다음을 통해 액세스 할 수 있습니다.
+
+	window.screen  
+	screen  
+
+
+
+
+| width       | 화면의 너비를 반환             |
+|-------------|--------------------------------|
+| height      | 화면의 높이를 반환             |
+| availWidth  | 사용 가능한 너비를 반환합니다. |
+| availHeight | 사용 가능한 높이를 반환합니다. |
+| colorDepth  | 색상 심도를 반환합니다.        |
+| pixelDepth  | 픽셀 심도를 반환합니다.        |
