@@ -28,5 +28,33 @@ JavaScript 히스토리 개체는 사용자가 방문한 URL의 배열을 나타
 	history  
 JavaScript 히스토리 객체의 속성
 
-length		returns the length of the history URLs
+| length | history URLs 의 길이를 반환|
+|--------|----------------------------------------|
+
+## JavaScript Navigator Object
+
+JavaScript 탐색기 개체는 브라우저 감지에 사용. appName, appCodeName, userAgent 등과 같은 브라우저 정보를 가져 오는 데 사용할 수 있다.
+
+navigator 객체는 window 속성이므로 다음을 통해 액세스 할 수 있다.
+	window.navigator  
+Or,
+	navigator  
+
+
+| appName        | 이름을 반환                                                         |
+|----------------|---------------------------------------------------------------------|
+| appVersion     | 버전을 반환                                                         |
+| appCodeName    | 코드   이름을 반환.                                                 |
+| cookieEnabled  | 쿠키가   활성화되면 true를 반환하고 그렇지 않으면 false를 반환.     |
+| userAgent      | 사용자   에이전트를 반환.                                           |
+| language       | 언어를   반환. Netscape 및 Firefox에서만 지원됩니다.                |
+| userLanguage   | 사용자   언어를 반환. IE에서만 지원됩니다.                          |
+| plugins        | 플러그인을   반환. Netscape 및 Firefox에서만 지원됩니다.            |
+| systemLanguage | 시스템   언어를 반환. IE에서만 지원됩니다.                          |
+| mimeTypes[]    | MIME   유형의 배열을 반환. Netscape 및 Firefox에서만 지원됩니다.    |
+| platform       | 플랫폼을   반환. Win32.                                             |
+| online         | 브라우저가   온라인이면 true를 반환하고 그렇지 않으면 false를 반환. |
+
+
+
 
