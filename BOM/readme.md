@@ -17,4 +17,16 @@ document, history, screen, navigator, location, innerHeight, innerWidth, 같은 
 
 ![image](https://user-images.githubusercontent.com/52963259/122161397-9b4acf00-ceac-11eb-891b-a9b365d2d511.png)
 
+## JavaScript History Object
+
+JavaScript 히스토리 개체는 사용자가 방문한 URL의 배열을 나타냅니다. 이 개체를 사용하여 이전, 앞으로 또는 특정 페이지를로드 할 수 있습니다.
+
+히스토리 개체는 창 속성이므로 다음을 통해 액세스 할 수 있습니다.
+
+	window.history
+또는,
+	history  
+JavaScript 히스토리 객체의 속성
+
+length		returns the length of the history URLs
 
