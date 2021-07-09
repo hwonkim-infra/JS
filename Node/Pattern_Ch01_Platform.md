@@ -27,24 +27,22 @@ print(data)
 
 이러한 유형의 비 차단 I / O를 처리하는 가장 기본적인 패턴은 실제 데이터가 반환 될 때까지 루프 내에서 리소스를 적극적으로 폴링하는 것
 
-> resources = [socketA, socketB, fileA]   
+```
+resources = [socketA, socketB, fileA]   
 while (!resources.isEmpty()) {   
-  for (resource of resources) {   
-    // try to read   
+  for (resource of resources) {     // try to read   
     data = resource.read()   
-    if (data === NO_DATA_AVAILABLE) {   
-      // 이 시점에서 읽을 데이터없음   
+    if (data === NO_DATA_AVAILABLE) {       // 이 시점에서 읽을 데이터없음   
       continue    
     }  
-    if (data === RESOURCE_CLOSED) {  
-      // 리소스가 닫혔으므로 목록에서 제거   
+    if (data === RESOURCE_CLOSED) {      // 리소스가 닫혔으므로 목록에서 제거   
       resources.remove(i)  
-    } else {  
-      // 일부 데이터가 입력되었으므로 프로세스 
+    } else {        // 일부 데이터가 입력되었으므로 프로세스 
       consumeData(data)  
     }  
   }
 }
+```
 루프는 대부분의 경우 사용할 수없는 리소스를 반복하는 데 귀중한 CPU 만 소비
 
 
