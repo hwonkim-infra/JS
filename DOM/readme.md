@@ -345,6 +345,7 @@ p::before { ... }
 ```
 <div class="result"></div>
 
+ul 요소의 자식 요소인 li 요소를 모두 탐색하여 반환.
 
 ```html
 <!DOCTYPE html>
@@ -356,10 +357,11 @@ p::before { ... }
       <li class="orange">Orange</li>
     </ul>
     <script>
-      // ul 요소의 자식 요소인 li 요소를 모두 탐색하여 반환한다.
-      const $elems = document.querySelectorAll('ul > li');
-      // 취득한 요소 노드들은 NodeList 객체에 담겨 반환된다.
-      console.log($elems); // NodeList(3) [li.apple, li.banana, li.orange]
+      const $elems = document.querySelectorAll('ul > li');	
+      const $elems = document.querySelectorAll('ul');
+	  const $elems = document.querySelectorAll('li');		// 모두 동일한 결과
+
+      console.log($elems); // NodeList(3) [li.apple, li.banana, li.orange]. 취득한 요소 노드들은 NodeList 객체에 담겨 반환
 
       // 취득한 모든 요소 노드의 style.color 프로퍼티 값을 변경한다.
       // NodeList는 forEach 메서드를 제공한다.
@@ -369,14 +371,15 @@ p::before { ... }
 </html>
 ```
 
+모든 요소 노드를 탐색하여 반환.
 
 ```javascript
-// 모든 요소 노드를 탐색하여 반환한다.
 const $all = document.querySelectorAll('*');
 // -> NodeList(8) [html, head, body, ul, li#apple, li#banana, li#orange, script]
 ```
 
 ### 특정 요소 노드를 취득할 수 있는지 확인
+document.querySelector('.apple');	// <li class=​"apple" style=​"color:​ blue;​">​…​</li>​
 
 ```html
 <!DOCTYPE html>
@@ -391,16 +394,16 @@ const $all = document.querySelectorAll('*');
   <script>
     const $apple = document.querySelector('.apple');
 
-    // $apple 노드는 '#fruits > li.apple'로 취득할 수 있다.
     console.log($apple.matches('#fruits > li.apple'));  // true
-
-    // $apple 노드는 '#fruits > li.banana'로 취득할 수 없다.
     console.log($apple.matches('#fruits > li.banana')); // false
   </script>
 </html>
 ```
 
 ### HTML Collection 과 NodeList
+
+querySelectorAll: NodeList. forEach 로 순환할 수 있다.
+HTMLCollection:  forEach 로 순환할 수 없다.
 
 ```html
 <!DOCTYPE html>
@@ -418,12 +421,11 @@ const $all = document.querySelectorAll('*');
       <li class="red">Orange</li>
     </ul>
     <script>
-      // class 값이 'red'인 요소 노드를 모두 탐색하여 HTMLCollection 객체에 담아 반환한다.
-      const $elems = document.getElementsByClassName('red');
+      const $elems = document.getElementsByClassName('red');      // class 값이 'red'인 요소 노드를 모두 탐색하여 HTMLCollection 객체에 담아 반환.
       // 이 시점에 HTMLCollection 객체에는 3개의 요소 노드가 담겨 있다.
       console.log($elems); // HTMLCollection(3) [li.red, li.red, li.red]
 
-      // HTMLCollection 객체의 모든 요소의 class 값을 'blue'로 변경한다.
+      // HTMLCollection 객체의 모든 요소의 class 값을 'blue'로 변경.
       for (let i = 0; i < $elems.length; i++) {
         $elems[i].className = 'blue';
       }
@@ -434,44 +436,39 @@ const $all = document.querySelectorAll('*');
   </body>
 </html>
 ```
-
-# 39-19
+for 문을 역방향으로 순회
 
 ```javascript
-// for 문을 역방향으로 순회
 for (let i = $elems.length - 1; i >= 0; i--) {
   $elems[i].className = 'blue';
 }
 ```
 
-# 39-20
+while 문으로 HTMLCollection에 요소가 남아 있지 않을 때까지 무한 반복
 
 ```javascript
-// while 문으로 HTMLCollection에 요소가 남아 있지 않을 때까지 무한 반복
 let i = 0;
 while ($elems.length > i) {
   $elems[i].className = 'blue';
 }
 ```
 
-# 39-21
+유사 배열 객체이면서 이터러블인 HTMLCollection을 배열로 변환하여 순회
 
 ```javascript
-// 유사 배열 객체이면서 이터러블인 HTMLCollection을 배열로 변환하여 순회
 [...$elems].forEach(elem => elem.className = 'blue');
 ```
 
-# 39-22
-
+NodeList 객체는 NodeList.prototype.forEach 메서드를 상속받아 사용할 수 있다.
 ```javascript
 // querySelectorAll은 DOM 컬렉션 객체인 NodeList를 반환한다.
 const $elems = document.querySelectorAll('.red');
 
-// NodeList 객체는 NodeList.prototype.forEach 메서드를 상속받아 사용할 수 있다.
 $elems.forEach(elem => elem.className = 'blue');
 ```
 
-# 39-23
+childNodes 프로퍼티는 NodeList 객체(live)를 반환한다.
+
 
 ```html
 <!DOCTYPE html>
@@ -485,12 +482,11 @@ $elems.forEach(elem => elem.className = 'blue');
   <script>
     const $fruits = document.getElementById('fruits');
 
-    // childNodes 프로퍼티는 NodeList 객체(live)를 반환한다.
     const { childNodes } = $fruits;
     console.log(childNodes instanceof NodeList); // true
 
-    // $fruits 요소의 자식 노드는 공백 텍스트 노드(39.3.1절 "공백 텍스트 노드" 참고)를 포함해 모두 5개다.
-    console.log(childNodes); // NodeList(5) [text, li, text, li, text]
+
+    console.log(childNodes); // NodeList(5) [text, li, text, li, text]     // 공백 텍스트 노드(39.3.1절 "공백 텍스트 노드" 참고)를 포함해 모두 5.
 
     for (let i = 0; i < childNodes.length; i++) {
       // removeChild 메서드는 $fruits 요소의 자식 노드를 DOM에서 삭제한다.
@@ -506,7 +502,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-24
+스프레드 문법을 사용하여 NodeList 객체를 배열로 변환하여 삭제.
 
 ```html
 <!DOCTYPE html>
@@ -520,16 +516,14 @@ $elems.forEach(elem => elem.className = 'blue');
   <script>
     const $fruits = document.getElementById('fruits');
 
-    // childNodes 프로퍼티는 NodeList 객체(live)를 반환한다.
-    const { childNodes } = $fruits;
+    const { childNodes } = $fruits;    // childNodes 프로퍼티는 NodeList 객체(live)를 반환한다.
 
-    // 스프레드 문법을 사용하여 NodeList 객체를 배열로 변환한다.
+
     [...childNodes].forEach(childNode => {
       $fruits.removeChild(childNode);
     });
-
-    // $fruits 요소의 모든 자식 노드가 모두 삭제되었다.
-    console.log(childNodes); // NodeList []
+ 
+    console.log(childNodes); // NodeList []    $fruits 요소의 모든 자식 노드가 모두 삭제되었다.
   </script>
 </html>
 ```
@@ -570,7 +564,8 @@ $elems.forEach(elem => elem.className = 'blue');
 
 ### 자식 노드 탐색
 
-
+.childNodes: 모든 자식 노드를 탐색. 요소 노드 + 텍스트 노드
+.children: 모든 자식 노드를 탐색. 요소 노드만.
 ```html
 <!DOCTYPE html>
 <html>
@@ -582,39 +577,26 @@ $elems.forEach(elem => elem.className = 'blue');
     </ul>
   </body>
   <script>
-    // 노드 탐색의 기점이 되는 #fruits 요소 노드를 취득한다.
-    const $fruits = document.getElementById('fruits');
+    const $fruits = document.getElementById('fruits');     // 노드 탐색의 기점이 되는 #fruits 요소 노드를 취득
 
-    // #fruits 요소의 모든 자식 노드를 탐색한다.
-    // childNodes 프로퍼티가 반환한 NodeList에는 요소 노드뿐만 아니라 텍스트 노드도 포함되어 있다.
     console.log($fruits.childNodes);
-    // NodeList(7) [text, li.apple, text, li.banana, text, li.orange, text]
+    // NodeList(7) [text, li.apple, text, li.banana, text, li.orange, text] #fruits 요소의 모든 자식 노드를 탐색: childNodes 프로퍼티가 반환한 NodeList에는 요소 노드뿐만 아니라 텍스트 노드도 포함.
 
-    // #fruits 요소의 모든 자식 노드를 탐색한다.
-    // children 프로퍼티가 반환한 HTMLCollection에는 요소 노드만 포함되어 있다.
     console.log($fruits.children);
-    // HTMLCollection(3) [li.apple, li.banana, li.orange]
+    // HTMLCollection(3) [li.apple, li.banana, li.orange] children 프로퍼티가 반환한 HTMLCollection에는 요소 노드만 포함
 
-    // #fruits 요소의 첫 번째 자식 노드를 탐색한다.
-    // firstChild 프로퍼티는 텍스트 노드를 반환할 수도 있다.
     console.log($fruits.firstChild); // #text
 
-    // #fruits 요소의 마지막 자식 노드를 탐색한다.
-    // lastChild 프로퍼티는 텍스트 노드를 반환할 수도 있다.
     console.log($fruits.lastChild); // #text
 
-    // #fruits 요소의 첫 번째 자식 노드를 탐색한다.
-    // firstElementChild 프로퍼티는 요소 노드만 반환한다.
-    console.log($fruits.firstElementChild); // li.apple
+    console.log($fruits.firstElementChild); // li.apple  firstElementChild 프로퍼티는 요소 노드만 반환한다.
 
-    // #fruits 요소의 마지막 자식 노드를 탐색한다.
-    // lastElementChild 프로퍼티는 요소 노드만 반환한다.
     console.log($fruits.lastElementChild); // li.orange
   </script>
 </html>
 ```
 
-# 39-29
+hasChildNodes 메서드는 텍스트 노드를 포함하여 자식 노드의 존재를 확인
 
 ```html
 <!DOCTYPE html>
@@ -627,14 +609,11 @@ $elems.forEach(elem => elem.className = 'blue');
     // 노드 탐색의 기점이 되는 #fruits 요소 노드를 취득한다.
     const $fruits = document.getElementById('fruits');
 
-    // #fruits 요소에 자식 노드가 존재하는지 확인한다.
-    // hasChildNodes 메서드는 텍스트 노드를 포함하여 자식 노드의 존재를 확인한다.
     console.log($fruits.hasChildNodes()); // true
   </script>
 </html>
 ```
-
-# 39-30
+자식 노드 중에 텍스트 노드가 아닌 요소 노드가 존재하는지 확인
 
 ```html
 <!DOCTYPE html>
@@ -644,10 +623,8 @@ $elems.forEach(elem => elem.className = 'blue');
     </ul>
   </body>
   <script>
-    // 노드 탐색의 기점이 되는 #fruits 요소 노드를 취득한다.
     const $fruits = document.getElementById('fruits');
 
-    // hasChildNodes 메서드는 텍스트 노드를 포함하여 자식 노드의 존재를 확인한다.
     console.log($fruits.hasChildNodes()); // true
 
     // 자식 노드 중에 텍스트 노드가 아닌 요소 노드가 존재하는지는 확인한다.
@@ -696,7 +673,8 @@ $elems.forEach(elem => elem.className = 'blue');
 ```
 
 ### 형제 노드 탐색
-
+nextSibling (텍스트 노드도 포함) nextElementSibling (요소 노드만 포함)
+previousElementSibling previousSibling
 ```html
 <!DOCTYPE html>
 <html>
@@ -708,37 +686,25 @@ $elems.forEach(elem => elem.className = 'blue');
     </ul>
   </body>
   <script>
-    // 노드 탐색의 기점이 되는 #fruits 요소 노드를 취득한다.
     const $fruits = document.getElementById('fruits');
 
-    // #fruits 요소의 첫 번째 자식 노드를 탐색한다.
-    // firstChild 프로퍼티는 요소 노드뿐만 아니라 텍스트 노드를 반환할 수도 있다.
     const { firstChild } = $fruits;
     console.log(firstChild); // #text
 
-    // #fruits 요소의 첫 번째 자식 노드(텍스트 노드)의 다음 형제 노드를 탐색한다.
-    // nextSibling 프로퍼티는 요소 노드뿐만 아니라 텍스트 노드를 반환할 수도 있다.
-    const { nextSibling } = firstChild;
+    const { nextSibling } = firstChild;	 // #fruits 요소의 첫 번째 자식 노드(텍스트 노드)의 다음 형제 노드를 탐색. 요소 노드뿐만 아니라 텍스트 노드를 반환
     console.log(nextSibling); // li.apple
 
-    // li.apple 요소의 이전 형제 노드를 탐색한다.
-    // previousSibling 프로퍼티는 요소 노드뿐만 아니라 텍스트 노드를 반환할 수도 있다.
-    const { previousSibling } = nextSibling;
+    
+    const { previousSibling } = nextSibling;	// 이전 형제 노드를 탐색. 요소 노드뿐만 아니라 텍스트 노드를 반환할 수도.
     console.log(previousSibling); // #text
 
-    // #fruits 요소의 첫 번째 자식 요소 노드를 탐색한다.
-    // firstElementChild 프로퍼티는 요소 노드만 반환한다.
     const { firstElementChild } = $fruits;
     console.log(firstElementChild); // li.apple
 
-    // #fruits 요소의 첫 번째 자식 요소 노드(li.apple)의 다음 형제 노드를 탐색한다.
-    // nextElementSibling 프로퍼티는 요소 노드만 반환한다.
-    const { nextElementSibling } = firstElementChild;
+    const { nextElementSibling } = firstElementChild;    // nextElementSibling 프로퍼티는 요소 노드만 반환
     console.log(nextElementSibling); // li.banana
-
-    // li.banana 요소의 이전 형제 요소 노드를 탐색한다.
-    // previousElementSibling 프로퍼티는 요소 노드만 반환한다.
-    const { previousElementSibling } = nextElementSibling;
+    
+    const { previousElementSibling } = nextElementSibling;		// previousElementSibling 프로퍼티는 요소 노드만 반환.
     console.log(previousElementSibling); // li.apple
   </script>
 </html>
@@ -794,8 +760,7 @@ $elems.forEach(elem => elem.className = 'blue');
   </script>
 </html>
 ```
-
-# 39-36
+nodeValue 프로퍼티를 사용하여 텍스트 노드의 값을 변경한다.
 
 ```html
 <!DOCTYPE html>
@@ -819,6 +784,7 @@ $elems.forEach(elem => elem.className = 'blue');
 
 ### textContent 
 
+ .textContent: 요소 노드의 텍스트를 모두 취득. 이때 HTML 마크업은 무시
 ```html
 <!DOCTYPE html>
 <html>
@@ -826,13 +792,11 @@ $elems.forEach(elem => elem.className = 'blue');
     <div id="foo">Hello <span>world!</span></div>
   </body>
   <script>
-    // #foo 요소 노드의 텍스트를 모두 취득한다. 이때 HTML 마크업은 무시된다.
     console.log(document.getElementById('foo').textContent); // Hello world!
   </script>
 </html>
 ```
 
-# 39-38
 
 ```html
 <!DOCTYPE html>
@@ -850,8 +814,7 @@ $elems.forEach(elem => elem.className = 'blue');
   </script>
 </html>
 ```
-
-# 39-39
+요소 노드의 콘텐츠 영역에 자식 요소 노드가 없고 텍스트만 존재한다면 firstChild.nodeValue와 textContent는 같은 결과를 반환.
 
 ```html
 <!DOCTYPE html>
@@ -863,8 +826,6 @@ $elems.forEach(elem => elem.className = 'blue');
   <script>
     const $foo = document.getElementById('foo');
 
-    // 요소 노드의 콘텐츠 영역에 자식 요소 노드가 없고 텍스트만 존재한다면
-    // firstChild.nodeValue와 textContent는 같은 결과를 반환한다.
     console.log($foo.textContent === $foo.firstChild.nodeValue); // true
   </script>
 </html>
@@ -906,7 +867,8 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
 </html>
 ```
 
-# 39-42
+HTML 마크업을 파싱하여 요소 노드의 자식 노드로 DOM에 반영.
+
 
 ```html
 <!DOCTYPE html>
@@ -915,7 +877,6 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
     <div id="foo">Hello <span>world!</span></div>
   </body>
   <script>
-    // HTML 마크업이 파싱되어 요소 노드의 자식 노드로 DOM에 반영된다.
     document.getElementById('foo').innerHTML = 'Hi <span>there!</span>';
   </script>
 </html>
@@ -945,8 +906,8 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
   </script>
 </html>
 ```
-
-# 39-44
+innerHTML 프로퍼티로 스크립트 태그를 삽입하여 자바스크립트가 실행되도록 한다.     
+HTML5는 innerHTML 프로퍼티로 삽입된 script 요소 내의 자바스크립트 코드를 실행하지 않는다.
 
 ```html
 <!DOCTYPE html>
@@ -955,8 +916,7 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
     <div id="foo">Hello</div>
   </body>
   <script>
-    // innerHTML 프로퍼티로 스크립트 태그를 삽입하여 자바스크립트가 실행되도록 한다.
-    // HTML5는 innerHTML 프로퍼티로 삽입된 script 요소 내의 자바스크립트 코드를 실행하지 않는다.
+
     document.getElementById('foo').innerHTML
       = '<script>alert(document.cookie)</script>';
   </script>
@@ -979,7 +939,7 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
 </html>
 ```
 
-# 39-46
+노드 추가
 
 ```html
 <!DOCTYPE html>
@@ -999,20 +959,16 @@ DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발
 ```
 <div class="result"></div>
 
-# 39-47
-
 ```javascript
 $fruits.innerHTML += '<li class="banana">Banana</li>';
 ```
 
-# 39-48
 
 ```javascript
 $fruits.innerHTML = $fruits.innerHTML + '<li class="banana">Banana</li>';
 // '<li class="apple">Apple</li>' + '<li class="banana">Banana</li>'
 ```
 
-# 39-49
 
 ```html
 <ul id="fruits">
