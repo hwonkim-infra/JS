@@ -120,8 +120,8 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
   </body>
 </html>
 ```
-
-# 39-04
+getElementById 메서드는 언제나 단 하나의 요소 노드를 반환한다.   
+첫 번째 li 요소가 파싱되어 생성된 요소 노드가 반환된다.
 
 ```html
 <!DOCTYPE html>
@@ -133,19 +133,13 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
       <li id="banana">Orange</li>
     </ul>
     <script>
-      // getElementById 메서드는 언제나 단 하나의 요소 노드를 반환한다.
-      // 첫 번째 li 요소가 파싱되어 생성된 요소 노드가 반환된다.
-      const $elem = document.getElementById('banana');
-
-      // 취득한 요소 노드의 style.color 프로퍼티 값을 변경한다.
-      $elem.style.color = 'red';
+      const $elem = document.getElementById('banana');	   
+      $elem.style.color = 'red';	   // 취득한 요소 노드의 첫번째 style.color 프로퍼티 값을 변경.
     </script>
   </body>
 </html>
 ```
-
-# 39-05
-
+인수로 전달된 id 값이 없으면 getElementById method 는 null 값을 전달 
 ```html
 <!DOCTYPE html>
 <html>
@@ -156,37 +150,27 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
       <li id="orange">Orange</li>
     </ul>
     <script>
-      // id 값이 'grape'인 요소 노드를 탐색하여 반환한다. null이 반환된다.
       const $elem = document.getElementById('grape');
-
-      // 취득한 요소 노드의 style.color 프로퍼티 값을 변경한다.
-      $elem.style.color = 'red';
-      // -> TypeError: Cannot read property 'style' of null
+      $elem.style.color = 'red';   // -> TypeError: Cannot read property 'style' of null
     </script>
   </body>
 </html>
 ```
-
-# 39-06
-
+HTML 요소에 id attribute 를 부여하면 id값과 동일한 이름의 전역변수가 암묵적으로 선언되고 해당 노드 객체가 할당됨.     
+단 이 값의 전역변수가 이미 선언 되어 있으면 그렇지 않음
 ```html
 <!DOCTYPE html>
 <html>
   <body>
-    <div id="foo"></div>
+    <div id="foo"></div>	      // id 값과 동일한 이름의 전역 변수가 암묵적으로 선언되고 해당 노드 객체가 할당된다.
     <script>
-      // id 값과 동일한 이름의 전역 변수가 암묵적으로 선언되고 해당 노드 객체가 할당된다.
-      console.log(foo === document.getElementById('foo')); // true
-
-      // 암묵적 전역으로 생성된 전역 프로퍼티는 삭제되지만 전역 변수는 삭제되지 않는다.
-      delete foo;
+      console.log(foo === document.getElementById('foo')); // true      
+      delete foo;	// 암묵적 전역으로 생성된 전역 프로퍼티는 삭제되지만 전역 변수는 삭제되지 않는다.
       console.log(foo); // <div id="foo"></div>
     </script>
   </body>
 </html>
 ```
-
-# 39-07
 
 ```html
 <!DOCTYPE html>
@@ -195,16 +179,16 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
     <div id="foo"></div>
     <script>
       let foo = 1;
-
-      // id 값과 동일한 이름의 전역 변수가 이미 선언되어 있으면 노드 객체가 재할당되지 않는다.
-      console.log(foo); // 1
+      console.log(foo); // 1.       // id 값과 동일한 이름의 전역 변수가 이미 선언되어 있으면 노드 객체가 재할당되지 않는다.
     </script>
   </body>
 </html>
 ```
 
-# 39-08
+### Tag Name 을 이용한 요소 노드 취득 
 
+탐색된 요소 노드들은 HTMLCollection 객체에 담겨 반환된다.     
+HTMLCollection 객체는 유사 배열 객체이면서 이터러블이다.
 ```html
 <!DOCTYPE html>
 <html>
@@ -216,8 +200,7 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
     </ul>
     <script>
       // 태그 이름이 li인 요소 노드를 모두 탐색하여 반환한다.
-      // 탐색된 요소 노드들은 HTMLCollection 객체에 담겨 반환된다.
-      // HTMLCollection 객체는 유사 배열 객체이면서 이터러블이다.
+      // 
       const $elems = document.getElementsByTagName('li');
 
       // 취득한 모든 요소 노드의 style.color 프로퍼티 값을 변경한다.
@@ -227,16 +210,12 @@ id 값은 HTML 에서 유일한 값이어야 함. 공백 문자로 구분되지 
   </body>
 </html>
 ```
-
-# 39-09
-
+ 모든 요소 노드를 탐색하여 반환: *
 ```javascript
-// 모든 요소 노드를 탐색하여 반환한다.
+
 const $all = document.getElementsByTagName('*');
 // -> HTMLCollection(8) [html, head, body, ul, li#apple, li#banana, li#orange, script, apple: li#apple, banana: li#banana, orange: li#orange]
 ```
-
-# 39-10
 
 ```html
 <!DOCTYPE html>
@@ -250,22 +229,19 @@ const $all = document.getElementsByTagName('*');
     <ul>
       <li>HTML</li>
     </ul>
-    <script>
-      // DOM 전체에서 태그 이름이 li인 요소 노드를 모두 탐색하여 반환한다.
-      const $lisFromDocument = document.getElementsByTagName('li');
+    <script>      
+      const $lisFromDocument = document.getElementsByTagName('li');	// DOM 전체에서 태그 이름이 li인 요소 노드를 모두 탐색하여 반환한다.
       console.log($lisFromDocument); // HTMLCollection(4) [li, li, li, li]
-
-      // #fruits 요소의 자손 노드 중에서 태그 이름이 li인 요소 노드를 모두
-      // 탐색하여 반환한다.
+      
       const $fruits = document.getElementById('fruits');
-      const $lisFromFruits = $fruits.getElementsByTagName('li');
+      const $lisFromFruits = $fruits.getElementsByTagName('li');	// #fruits 요소의 자손 노드 중에서 태그 이름이 li인 요소 노드를 모두 탐색하여 반환.
       console.log($lisFromFruits); // HTMLCollection(3) [li, li, li]
     </script>
   </body>
 </html>
 ```
 
-# 39-11
+### class 를 이용한 요소 노드 취득
 
 ```html
 <!DOCTYPE html>
@@ -293,7 +269,6 @@ const $all = document.getElementsByTagName('*');
 </html>
 ```
 
-# 39-12
 
 ```html
 <!DOCTYPE html>
@@ -320,7 +295,7 @@ const $all = document.getElementsByTagName('*');
 </html>
 ```
 
-# 39-13
+### CSS 선택자를 이용한 요소 노드 취득 
 
 ```css
 /* 전체 선택자: 모든 요소를 선택 */
@@ -348,7 +323,6 @@ a:hover { ... }
 p::before { ... }
 ```
 
-# 39-14
 
 ```html
 <!DOCTYPE html>
@@ -371,7 +345,6 @@ p::before { ... }
 ```
 <div class="result"></div>
 
-# 39-15
 
 ```html
 <!DOCTYPE html>
@@ -396,7 +369,6 @@ p::before { ... }
 </html>
 ```
 
-# 39-16
 
 ```javascript
 // 모든 요소 노드를 탐색하여 반환한다.
@@ -404,7 +376,7 @@ const $all = document.querySelectorAll('*');
 // -> NodeList(8) [html, head, body, ul, li#apple, li#banana, li#orange, script]
 ```
 
-# 39-17
+### 특정 요소 노드를 취득할 수 있는지 확인
 
 ```html
 <!DOCTYPE html>
@@ -428,7 +400,7 @@ const $all = document.querySelectorAll('*');
 </html>
 ```
 
-# 39-18
+### HTML Collection 과 NodeList
 
 ```html
 <!DOCTYPE html>
@@ -562,8 +534,8 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-25
-
+## 노드 탐색 
+요소 노드를 취득한 후 그 기점으로 DOM 트리를 옮겨 다니며 부모 형제 자식 노드 등을 탐색할 수 있다. 
 ```html
 <ul id="fruits">
   <li class="apple">Apple</li>
@@ -572,7 +544,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </ul>
 ```
 
-# 39-26
+### 공백 텍스트 노드
 
 ```html
 <!DOCTYPE html>
@@ -596,7 +568,8 @@ $elems.forEach(elem => elem.className = 'blue');
   class="orange">Orange</li></ul>
 ```
 
-# 39-28
+### 자식 노드 탐색
+
 
 ```html
 <!DOCTYPE html>
@@ -685,7 +658,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-31
+### 요소 노드의 텍스트 노드 탐색
 
 ```html
 <!DOCTYPE html>
@@ -700,7 +673,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-32
+### 부모 노드 탐색
 
 ```html
 <!DOCTYPE html>
@@ -722,7 +695,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-33
+### 형제 노드 탐색
 
 ```html
 <!DOCTYPE html>
@@ -771,7 +744,7 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-34
+## 노드 정보 취득
 
 ```html
 <!DOCTYPE html>
@@ -797,7 +770,9 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-35
+## 요소 노드의 텍스트 조작
+
+### nodeValue
 
 ```html
 <!DOCTYPE html>
@@ -842,7 +817,7 @@ $elems.forEach(elem => elem.className = 'blue');
 <div class="result"></div>
 
 
-# 39-37
+### textContent 
 
 ```html
 <!DOCTYPE html>
@@ -911,7 +886,11 @@ $elems.forEach(elem => elem.className = 'blue');
 </html>
 ```
 
-# 39-41
+## DOM 조작
+
+DOM 에 새로운 노드가 추가하거나 삭제하면 reflow, repaint 가 발생하여 성능에 영향을 주므로 신중하게 사용
+
+### innerHTML
 
 ```html
 <!DOCTYPE html>
@@ -1042,7 +1021,8 @@ $fruits.innerHTML = $fruits.innerHTML + '<li class="banana">Banana</li>';
 </ul>
 ```
 
-# 39-50
+### insertAdjacentHTML method
+Element.prototype.insertAdjacentElement(where, element): 기존 요소를 제거하지 않으면서 위치를 지정해 새로운 요소를 삽입 
 
 ```html
 <!DOCTYPE html>
@@ -1067,7 +1047,7 @@ $fruits.innerHTML = $fruits.innerHTML + '<li class="banana">Banana</li>';
 </html>
 ```
 
-# 39-51
+### 노드 생성과 추가
 
 ```html
 <!DOCTYPE html>
@@ -1142,7 +1122,8 @@ $li.textContent = 'Banana';
 $fruits.appendChild($li);
 ```
 
-# 39-58
+### 복수의 노드 생성과 추가
+DOM 변경은 고비용이므로 가급적 줄이고 컨테이너 요소를 이용 
 
 ```html
 <!DOCTYPE html>
@@ -1216,7 +1197,8 @@ $fruits.appendChild($li);
 </ul>
 ```
 
-# 39-61
+DocumentFragment: 문서, 요소 등 노드 객체의 일종. 부모 노드가 없어 별도로 존재. 기존 DOM 에 서브로 추가하기 위한 용도. 
+DOM에 추가하면 자신은 삭제되고 자식 노드만 추가됨.
 
 ```html
 <!DOCTYPE html>
@@ -1250,7 +1232,9 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-62
+### 노드 삽입 
+
+Node.prototype.appendChild: 인수로 전달받은 노드를 자신을 호출한 노드의 마지막 자식 노드로 추가. 
 
 ```html
 <!DOCTYPE html>
@@ -1274,7 +1258,7 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-63
+지정한 위치에 노드 삽입
 
 ```html
 <!DOCTYPE html>
@@ -1355,7 +1339,7 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-66
+### 노드 이동
 
 ```html
 <!DOCTYPE html>
@@ -1383,7 +1367,9 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-67
+### 노드 복사
+
+Node.prototype.cloneNode: 노드의 사본을 생성하여 반환. 매개변수 deep 에서 깊은/얕은 복사 결정 
 
 ```html
 <!DOCTYPE html>
@@ -1412,7 +1398,8 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-68
+### 텍스트 교체 
+Node.prototype.replaceChild(node, child): 자신을 오출한 노드의 자식 노드를 다른 노드로 교체.
 
 ```html
 <!DOCTYPE html>
@@ -1435,7 +1422,8 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-69
+### 노드 삭제 
+Node.prototype.removeChild(child): child 매개변수에 인수로 전달한 노드를 DOM 에서 삭제.
 
 ```html
 <!DOCTYPE html>
@@ -1455,11 +1443,17 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-70
+## Attribute
 
+### Attribute Node와 attribute property
+HTML 요소는 여러 가지 속성을 가질 수 있다. 
 ```html
 <input id="user" type="text" value="ungmo2">
 ```
+특정 HTML 요소에만 한정적으로 사용가능한 attribute; type, value, checked 등 input 요소에만 사용가능.
+요소 노드의 모든 attribute node 는 Element.prototype.attributes property로 취득할 수 있다. 
+
+
 
 # 39-71
 
@@ -1483,7 +1477,8 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-72
+### HTML attribute 조작 
+Element.prototype.getAttribute / Element.prototype.setAttribute 메서드로 attribute property 통하지 않고 직접 요소 노드에서 취득 및 변경
 
 ```html
 <!DOCTYPE html>
@@ -1505,7 +1500,7 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-73
+특정 html attr. 존재하는지 확인하려면 Element.prototype.hasAttribute 메서드 이용
 
 ```html
 <!DOCTYPE html>
@@ -1528,7 +1523,8 @@ $fruits.appendChild($li);
 </html>
 ```
 
-# 39-74
+### HTML attribute vs. DOM property
+HTML: attribute 의 역할은 HTML 의 초기 상태를 지정하는 것. 이는 변하지 않음. 
 
 ```html
 <!DOCTYPE html>
@@ -1590,7 +1586,8 @@ document.getElementById('user').getAttribute('value'); // ungmo2
 </html>
 ```
 
-# 39-78
+DOM Property: 사용자가 입력한 최신 상태는 HTML attribute에 대응하는 요소 노드의 DOM property가 관리. 
+DOM property는 언제나 최신 상태를 유지 
 
 ```html
 <!DOCTYPE html>
@@ -1675,7 +1672,7 @@ document.getElementById('user').getAttribute('value'); // ungmo2
 </html>
 ```
 
-# 39-82
+### data attribute와 dataset property
 
 ```html
 <!DOCTYPE html>
@@ -1744,7 +1741,8 @@ document.getElementById('user').getAttribute('value'); // ungmo2
 </html>
 ```
 
-# 39-85
+## Style 
+### Inline style 조작 
 
 ```html
 <!DOCTYPE html>
@@ -1787,7 +1785,7 @@ $div.style['background-color'] = 'yellow';
 $div.style.width = '100px';
 ```
 
-# 39-89
+### class 조작 
 
 ```html
 <!DOCTYPE html>
@@ -1901,7 +1899,7 @@ $box.classList.toggle('foo', true); // -> class="box blue foo"
 $box.classList.toggle('foo', false); // -> class="box blue"
 ```
 
-# 39-98
+### 요소에 적용되어 있는 css 스타일 참조 
 
 ```html
 <!DOCTYPE html>
@@ -1969,3 +1967,4 @@ $box.classList.toggle('foo', false); // -> class="box blue"
 </html>
 ```
 
+## DOM 표준 
