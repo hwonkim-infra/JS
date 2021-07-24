@@ -8,7 +8,8 @@
 사용자가 변경 사항을 명시적으로 커밋하는 경우(예: 마우스 클릭으로 <select>의 드롭다운에서 값 선택, <input type="date">에 대한 날짜 선택기에서 날짜 선택, <input type="file">에 대한 파일 선택기 등);
 요소의 값이 변경되었지만 커밋되지 않은 후 포커스를 잃는 경우(예: <textarea> 또는 <input type="text">의 값을 편집한 후).     
 HTML 사양은 변경 이벤트를 발생시켜야 하는 <input> 유형을 나열한다.     
-
+  
+### Example
 ```HTML
 <label>Choose an ice cream flavor:
   <select class="ice-cream" name="ice-cream">
