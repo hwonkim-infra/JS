@@ -43,7 +43,7 @@ DOM beforeinput 이벤트는 <input>, <select> 또는 <textarea> 요소의 값�
 
 contenteditable 및 designMode의 경우 이벤트 대상은 편집 호스트. 이러한 속성이 여러 요소에 적용되는 경우 편집 호스트는 상위 요소를 편집할 수 없는 가장 가까운 상위 요소.     
 
-### Example
+### Example      
 다음 함수는 beforeinput 및 getTargetRanges가 지원되는 경우 true를 반환한다. 
 ```
 function isBeforeInputEventAvailable() {
