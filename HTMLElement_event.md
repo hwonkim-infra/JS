@@ -45,6 +45,7 @@ contenteditable 및 designMode의 경우 이벤트 대상은 편집 호스트. �
 
 ### Example      
 다음 함수는 beforeinput 및 getTargetRanges가 지원되는 경우 true를 반환한다. 
+  
 ```
 function isBeforeInputEventAvailable() {
   return window.InputEvent && typeof InputEvent.prototype.getTargetRanges === "function";
