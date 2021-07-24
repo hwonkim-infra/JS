@@ -19,7 +19,6 @@ HTML 사양은 변경 이벤트를 발생시켜야 하는 <input> 유형을 나�
     <option value="vanilla">Vanilla</option>
   </select>
 </label>
-
 <div class="result"></div>
 ```
 ```javascript
