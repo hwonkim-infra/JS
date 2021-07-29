@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tag Demo</title>
+    <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    .pages {
+      max-width: 200mm;
+      max-height: 270mm;
+    }
+   
+    table {
+        border: 3px solid black;
+        border-collapse: collapse;
+
+    }
+    tr, td, th{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .bordertable{
+        border: 3px solid black;
+        border-collapse: collapse;
+        width: 100%;
+        height: 270mm;       
+        
+    }
+    .borderheader{
+        height:20mm;
+        text-align:center;
+        /* font-size: */
+    }
+    div {
+        page-break-after: always;
+    }
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+
+</style>
+<body>
+  <div><input type="file" id="inputExcelRead" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/></div>   // xlsx MIME  
+  <!-- <div class="pagination">
+    <a href="#mainSpec" class="active">제원사양</a>   
+    <a href="#changes">변경 사양</a>
+    <a href="#GroundPressure">접지압</a>
+  </div> -->
+
+  <div class="pages" id="mainSpec"> 
+    <table width = "100%" height = "260mm">
+      <thead>
+        <tr>
+          <th colspan="6">건설기계(무한궤도식등)제원표</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="2" width="35%">형식승인(신고)자</td>
+          <td colspan="4" name="applicant_doosan">두산인프라코어</td>
+        </tr>
+        <tr>
+          <td colspan="2">건설기계명</td>
+          <td width="15%">굴착기</td>
+          <td colspan="2">제작회사(제작국)</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td colspan="2">형식</td>
+          <td name="model_name"> </td>
+          <td colspan="2">규격</td>
+          <td name="machine_grade"></td>
+        </tr>
+        <tr>
+          <td colspan="2">자체중량 (㎏)</td>
+          <td name = "operating_weight"> </td>
+          <td colspan="2">변속기</td>
+          <td name="gearbox"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">최고속도 (㎞/hr)</td>
+          <td name="travel_speed"> </td>
+          <td rowspan="6" width="6%">엔진</td>
+          <td>형식</td>
+          <td name="engine_name"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">등판능력 (무부하)</td>
+          <td name="greadability"> </td>
+          <td>출력(정격출력)</td>
+          <td name="engine_power">ps/ rpm</td>
+        </tr>
+        <tr>
+          <td rowspan="4" width="6%">외관</td>
+          <td>길이 (㎜)</td>
+          <td name = "overall_length"></td>
+          <td>최대토오크</td>
+          <td name="engine_torque">㎏ㆍm/rpm</td>
+        </tr>
+        <tr>
+          <td>너비 (㎜)</td>
+          <td name="overall_width"> </td>
+          <td>기통수</td>
+          <td name="engine_cylinder">기통</td>
+        </tr>
+        <tr>
+          <td>높이 (㎜)</td>
+          <td name="overall_height"> </td>
+          <td>연료종류</td>
+          <td>디젤 </td>
+        </tr>
+        <tr>
+          <td>최저지상고 (㎜)</td>
+          <td name="ground_clearance"> </td>
+          <td>제작회사</td>
+          <td name="engine_supplier"> </td>
+        </tr>
+        <tr>
+          <td rowspan="5">무한궤도식등</td>
+          <td>슈폭 (㎜)</td>
+          <td name="shoe_width"> </td>
+          <td rowspan="5">드럼등기타방식</td>
+          <td>드럼치수</td>
+          <td>㎜× ㎜</td>
+        </tr>
+        <tr>
+          <td>트랙높이</td>
+          <td name="track_height"> </td>
+          <td>타이어치수</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>트랙중심간거리 (㎜)</td>
+          <td name="track_gap"> </td>
+          <td>축간거리 (㎜)</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>텀블러중심간거리 (㎜)</td>
+          <td name="tumbler_distance"> </td>
+          <td>최소회전반경 (㎜)</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>접지압(㎏/㎠)</td>
+          <td name="ground_pressure"> </td>
+          <td>제동거리</td>
+          <td>m/ ㎞/hr</td>
+        </tr>
+        <tr>
+          <td colspan="6">작 업 장 치</td>
+        </tr>
+        <tr>
+          <td colspan="2">버킷용량(평적) (㎥)</td>
+          <td name="bucket_struck"> </td>
+          <td colspan="2">버킷용량(산적) (㎥)</td>
+          <td name="bucket_heap"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">선회속도 (rpm)</td>
+          <td name="swing_speed"></td>
+          <td colspan="2">암의길이 (㎜)</td>
+          <td name="arm_length"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">붐의길이 (㎜)</td>
+          <td name="boom_length"></td>
+          <td colspan="2">최대굴착반지름 (㎜)</td>
+          <td name="digging_reach"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">최대굴삭깊이 (㎜)</td>
+          <td name="digging_depth"></td>
+          <td colspan="2">최대덤프높이 (㎜)</td>
+          <td name="digging_height"> </td>
+        </tr>
+        <tr>
+          <td colspan="2">배토판너비x높이 (㎜)</td>
+          <td>㎜</td>
+          <td colspan="2">  </td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td colspan="2">비고</td>
+          <td colspan="4">    </td>
+        </tr>
+        <tr>
+          <td colspan="2">형식승인연월일</td>
+          <td> </td>
+          <td colspan="2">형식승인번호</td>
+          <td> </td>
+        </tr>
+      </tbody>
+      </table>
+
+  </div>  
+<!--   
+<div class="pages" id="change"> 
+    <table class="bordertable">
+        <tr class="borderheader">
+            <td height="30mm">
+                변경 사양
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <table height="70%" width="100%">
+                <thead>
+                  <tr>
+                    <th>　</th>
+                    <th>최초 사양</th>
+                    <th>변경 후</th>
+                    <th>비고</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>붐</td>
+                    <td>6.5</td>
+                    <td>6.5</td>
+                    <td>m</td>
+                  </tr>
+                  <tr>
+                    <td>암</td>
+                    <td>3.2</td>
+                    <td>2.6</td>
+                    <td>m</td>
+                  </tr>
+                  <tr>
+                    <td>버켓(산적/평적)</td>
+                    <td>1.61/1.2</td>
+                    <td>1.83/1.36</td>
+                    <td>㎥ </td>
+                  </tr>
+                  <tr>
+                    <td>자체중량</td>
+                    <td>40,800</td>
+                    <td>40,900</td>
+                    <td>kg</td>
+                  </tr>
+                  <tr>
+                    <td>접지압</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>kg/㎠</td>
+                  </tr>
+                  <tr>
+                    <td>길이</td>
+                    <td>11,255</td>
+                    <td>11,405</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>최고속도</td>
+                    <td>6.3</td>
+                    <td>5.4</td>
+                    <td>㎞/h</td>
+                  </tr>
+                  <tr>
+                    <td>선회속도</td>
+                    <td>11</td>
+                    <td>9.7</td>
+                    <td>rpm</td>
+                  </tr>
+                  <tr>
+                    <td>높이</td>
+                    <td>3,620</td>
+                    <td>3,750</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>너비</td>
+                    <td>3,350</td>
+                    <td>3,510</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>트랙높이</td>
+                    <td>1040</td>
+                    <td>1070</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>최저지상고</td>
+                    <td>675</td>
+                    <td>555</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>최대굴착반지름</td>
+                    <td>11,460</td>
+                    <td>10,835</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>최대굴착깊이</td>
+                    <td>7,755</td>
+                    <td>7,095</td>
+                    <td>㎜</td>
+                  </tr>
+                  <tr>
+                    <td>최대덤프높이</td>
+                    <td>6,955</td>
+                    <td>6,700</td>
+                    <td>㎜   <br>   </td>
+                  </tr>
+                </tbody>
+                </table>
+            </td>
+            </tr>       
+    </table>
+</div> -->
+
+<div class="pages" id="machine_drawing">
+  <table class="bordertable">
+      <tr class="borderheader">
+          <td height="30mm">
+              외관_제원
+          </td>
+      </tr>
+      <tr>
+          <td>
+              <table height="100%" width="100%">
+                  <thead>
+                      <tr>
+                        <th colspan="5" height="500px">
+                            <img src="./images/DX380LC-7_machine_drawing.jpg" width=100% > </th>
+                      </tr>
+                    </thead>                    
+                    <tbody>
+                      <tr>
+                        <td colspan="3">Dimension</td>
+                      </tr>
+                      <tr>
+                        <td width="15%">A</td>
+                        <td width="60%">길이</td>
+                        <td name="overall_length"></td>
+                      </tr>
+                      <tr>
+                        <td>C</td>
+                        <td>텀블러중심간거리</td>
+                        <td name = "tumbler_distance"></td>
+                      </tr>
+                      <tr>
+                        <td>D</td>
+                        <td>트랙길이</td>
+                        <td name="track_length"></td>
+                      </tr>
+                      <tr>
+                        <td>F(Hose)</td>
+                        <td>높이</td>
+                        <td name="overall_height"></td>
+                      </tr>
+                      <tr>
+                        <td>G</td>
+                        <td name="overall_width">너비</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>J</td>
+                        <td>슈 폭</td>
+                        <td name="shoe_width"></td>
+                      </tr>
+                      <tr>
+                        <td>K</td>
+                        <td>하부체 너비</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>N</td>
+                        <td>트랙높이 (w/o grouser)</td>
+                        <td name="track_height"></td>
+                      </tr>
+                      <tr>
+                        <td>O</td>
+                        <td>최저지상고 (w/o grouser)</td>
+                        <td name="ground_clearance"></td>
+                      </tr>
+                    </tbody>                    
+              </table>                    
+
+      </td>
+      </tr>
+  </table>
+
+</div>
+<div class="pages" id="Ground_Pressure">
+        <table class="bordertable">
+            <tr class="borderheader">
+                <td height="30mm">
+                    접지압
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table height="100%" width="100%">
+                        <thead>
+                            <tr>
+                              <th colspan="5">
+                                  <img src="./images/GroundPressure.png" width=100% height=100%> </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td colspan="5">접지압 (퀵커플러)</td>
+                            </tr>
+                            <tr>
+                              <td>텀블러 중심거리</td>
+                              <td>l</td>
+                              <td>425</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>무한궤도길이</td>
+                              <td>h</td>
+                              <td>85.1</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>접지길이</td>
+                              <td>L</td>
+                              <td>454.785</td>
+                              <td>(㎝)</td>
+                              <td>l+0.35×h</td>
+                            </tr>
+                            <tr>
+                              <td>장비전중량</td>
+                              <td>W</td>
+                              <td>45265</td>
+                              <td>(㎏)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>슈폭</td>
+                              <td>B</td>
+                              <td>60</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>접지압</td>
+                              <td>P</td>
+                              <td>0.83</td>
+                              <td>(kg/㎠)</td>
+                              <td>　   <br>   </td>
+                            </tr>
+                            <tr>
+                              <td colspan="5">접지압 (퀵커플러 제외)</td>
+                            </tr>
+                            <tr>
+                              <td>텀블러 중심거리</td>
+                              <td>l</td>
+                              <td>425</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>무한궤도길이</td>
+                              <td>h</td>
+                              <td>85.1</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>접지길이</td>
+                              <td>L</td>
+                              <td>454.785</td>
+                              <td>(㎝)</td>
+                              <td>l+0.35×h</td>
+                            </tr>
+                            <tr>
+                              <td>장비전중량</td>
+                              <td>W</td>
+                              <td>44612</td>
+                              <td>(㎏)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>슈폭</td>
+                              <td>B</td>
+                              <td>60</td>
+                              <td>(㎝)</td>
+                              <td>　</td>
+                            </tr>
+                            <tr>
+                              <td>접지압</td>
+                              <td>P</td>
+                              <td>0.82</td>
+                              <td>(kg/㎠)</td>
+                              <td>　   <br>   </td>
+                            </tr>
+                          </tbody>
+                          
+                          
+                    </table>
+                          
+
+            </td>
+            </tr>
+        </table>
+
+
+</div>
+<div class="pages" id="Engine_specifications">  
+    <table class="bordertable"> 
+        <tr class="borderheader">
+            <td height="30mm">
+                엔진 사양
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" height="400px">
+                        <tbody>
+                          <tr>
+                            <td width="50%">제 작 회 사</td>
+                            <td name="engine_supplier"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>형 식</td>
+                            <td name="engine_name"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>배기량(cc)</td>
+                            <td name="displacement"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>종 류</td>
+                            <td name="engine_type"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>실린더(수 및 배열)</td>
+                            <td name="cylinder_arrange"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>정격출력(ps/rpm)</td>
+                            <td name="engine_power"></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>최대토르크(kgf.m/rpm)</td>
+                            <td name="engine_torque"></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>보어 x 스트로크</td>
+                            <td name="bore_stroke"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>냉 각 방 식</td>
+                            <td name="cooling"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>압 축 비</td>
+                            <td name="compression_ratio"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>HIGH IDLE SPEED</td>
+                            <td name="high_idle"></td>
+                            <td> </td>
+                          </tr>
+                          <tr>
+                            <td>LOW IDLE SPEED</td>
+                            <td name="low_idle"></td>
+                            <td> </td>
+                          </tr>
+                        </tbody>
+                </table>
+                
+                <tr>
+                  <th colspan="3">
+                      <img src="./images/engine_exterior.png" width=100% height=100%> </th>
+              </tr>
+        </td>
+        </tr>
+    </table>
+
+
+</div>
+<div class="pages" id="Travel_Speed">  
+  <table class="bordertable"> 
+      <tr class="borderheader">
+          <td height="30mm">
+              주행 속도
+          </td>
+      </tr>
+      <tr>
+          <td>
+              <table width="100%" height="800px">
+                <tbody>
+                  <tr>
+                    <td>엔진최고 회전수 (HIGH IDLE)</td>
+                    <td>rpm</td>
+                    <td name="engine_high_idle"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>펌프   최대 용적</td>
+                    <td>cc/rev</td>
+                    <td name="pump_displacement"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>시스템   압력 (NORMAL)</td>
+                    <td>kgf/cm^2</td>
+                    <td name="relief_valve_pressure"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>모터 용적</td>
+                    <td>cc/rev</td>
+                    <td name="motor_displacement"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>감속비</td>
+                    <td>-</td>
+                    <td name="reduction_gear_ratio"></td>
+                    <td>　</td>
+                  </tr>                  
+                  <tr>
+                    <td>Sprocket   P.C.D.</td>
+                    <td>mm</td>
+                    <td name="sprocket_PCD"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>No.   of Teeth</td>
+                    <td>EA</td>
+                    <td name="No_teeth"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>No.   of Link</td>
+                    <td>EA</td>
+                    <td name="No_link"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>Link   Pitch</td>
+                    <td>mm</td>
+                    <td name="link_pitch"></td>
+                    <td>　</td>
+                  </tr>
+                  <tr>
+                    <td>모터속도</td>
+                    <td>rpm</td>
+                    <td name="motor_rpm"></td>
+                    <td>회전수 x 펌프용적 / 모터용적</td>
+                  </tr>
+                  <tr>
+                    <td>모터토크</td>
+                    <td>kgf m</td>
+                    <td name="motor_torque"></td>
+                    <td>시스템압력 × 모터 용적 / 200π </td>
+                  </tr>
+                  <tr>
+                    <td>감속기속도</td>
+                    <td>rpm</td>
+                    <td name="reduction_gear_rpm"></td>
+                    <td>감속비 / 모터속도</td>
+                  </tr>
+                  <tr>
+                    <td>감속기 토크</td>
+                    <td>kgf m</td>
+                    <td name="reduction_gear_torque"></td>
+                    <td>감속비 × 모터 토크</td>
+                  </tr>
+                  <tr>
+                    <td>주행속도<br>     (이론 η=100%)</td>
+                    <td>km/hr</td>
+                    <td name="speed_expct"></td>
+                    <td>감속기속도 × 스프로켓 잇수</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2">주행속도-효율고려<br>     (실측치, 예상치)</td>
+                    <td>km/hr</td>
+                    <td name="speed_eff"></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td name="speed_result"></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>              
+          </td>
+      </tr>
+  </table>
+
+
+</div>
+<script type="text/javascript" src="xlreader.js">
+
+    // document.getElementById("applicant_doosan").innerHTML = (sheet["C2"].v);
+
+
+</script>
+
+</body>
+</html>
