@@ -1,0 +1,27 @@
+기종,대표사양,버켓사양,구분,SOP,탑재 E/G, 확인검사 
+"DX150LC-7
+(CEBDT)",KR20,0.59,KR10+Rotating+AVM,'21.12월,두산 D34,~12월말까지
+"DX150LCR-7
+(CEBDU)",KR10,0.59,4.0B+1.9A+AVM,'22.1월,두산 D34,
+"DX240LC-7
+(CEBDP)",KR30,0.92,STD,'21.12월,두산 DL06,~12월말까지
+"DX240LC-7X
+(CEBDY)",KR10,0.92,STD + 2.5D MG/MC+AVM,'22.2월,두산 DL06,~11/5까지
+"DX240LCR-7
+(CEBDS)",KR10,0.92,4.7B+2.1A+AVM,'21.11월,두산 DL06,
+"DX150W-7
+(CEWCX)",KR30,0.59,KR10+Rotating,'22.1월,두산 DL06,~1월말까지
+"DX170W-7
+(CEWCX)",KR30,0.59,KR10(STD(2.5A))+Rotating,'22.1월,두산 DL06,~1월말까지
+"DX220W-7
+(CEWCL)",KR20,0.86,철거용(STD+2 pumps),'22.2월,두산 DL06,~2월말까지
+"DX320LC-7
+(CECGS)",KR10,1.27,STD (6.245B+3.1A+1.27b),'22.2월,두산 DL08,~12월말까지
+"DX350LC-7
+(CECGT)",KR10,Non Bucket,"Sheet Pile Driver, Demolition",'21.12월,두산 DL08,~12월말까지
+"DX400LC-7
+(CECFL)",KR10,1.61,STD(6.5HD+3.2HD+1.61b),'21.10월,Scania DC09,~2월말까지
+"DX550LC-7
+(CECGV)",KR10,2.39,STD(7.1HD+3.35HD+2.39b),'22.2월,Scania DC13,~1월말까지
+DX800LC-7,KR10,4.64,7.7B+2.9A+4.64b,양산중,Perkins 2506J,
+DX1000LC-7,KR10,5.4,8.4B+3.75A+5.4b,양산예정,Perkins 2806J,
