@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/page.css" type="text/css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title><%= blog.title %> </title>
+</head>
+
+<body>
+    <a href="/" class="rounded-pill shadow p-2 d-flex align-items-center justify-content-center"
+        style="text-decoration:none;">
+        <i class="material-icons mr-2" style="color:black">arrow_left
+        </i> <span class="" style="color:black">Back</span>
+    </a>
+    <div class="paper">
+        <table class="bordertable">
+            <tr class="borderheader ">
+                <td height="30mm">
+                    <%= blog.title %>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">
+
+                    <%- blog.description %>
+                </td>
+
+            </tr>
+        </table>
+
+        <div class="more position-relative" style="cursor: pointer;">
+
+
+            <i class="material-icons p-2">more_vert</i>
+            <!-- options list -->
+            <div class="d-none options card rounded-pill shadow-sm p-1 position-absolute">
+                <a href="blogs/edit/<%= blog.id %> " class="rounded-circle p-2 mb-2" style="background:blue;">
+                    <i class="material-icons" style="color:white">create</i>
+                </a>
+                <form action="/blogs/<%=blog.id%>?_method=DELETE" method="POST">
+                    <button class="rounded-circle p-2 bg-danger">
+                        <i class="material-icons" style="color:white">delete</i>
+
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

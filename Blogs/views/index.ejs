@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href="/css/page.css" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+    <title>Document Pages</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="m-4 text-center">
+            
+
+        </div>
+        <div class="row mb-3 no-print">
+            <a href="blogs/new" class="btn btn-success d-flex align-items-center"><i
+                    class="material-icons mr-2">add_circle</i>
+                New Page</a>
+        </div>
+        <div class="row">
+
+            <% blogs.forEach(blog=>{ %>
+
+            <div class="paper">
+                <table class="bordertable">
+                    <tr class="borderheader ">
+                        <td height="30mm">
+                            <%= blog.title %>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align:top">
+
+                                    <%- blog.description %>
+                        </td>
+
+                    </tr>
+                </table>
+                <div class="more position-relative no-print" style="cursor: pointer;">
+
+
+                    <i class="material-icons p-2">more_vert</i>
+                    <!-- options list -->
+                    <div class="d-none options card rounded-pill shadow-sm p-1 position-absolute">
+                        <a href="blogs/edit/<%= blog.id %> " class="rounded-circle p-2 mb-2" style="background:blue;">
+                            <i class="material-icons" style="color:white">create</i>
+                        </a>
+                        <form action="/blogs/<%=blog.id%>?_method=DELETE" method="POST">
+                            <button class="rounded-circle p-2 bg-danger">
+                                <i class="material-icons" style="color:white">delete</i>
+
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <% }) %>
+
+
+
+
+        </div>
+        <script src="/js/index.js"></script>
+        <script src="/js/tinyClassic.js"></script>
+
+
+</body>
+
+</html>
