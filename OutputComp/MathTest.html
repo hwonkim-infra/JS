@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>형식승인/신고 양식</title>
+    <link rel="stylesheet" href="pages.css">
+<style></style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+      </script>
+      <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+      </script>
+
+</head>
+<body>
+
+  <div class="pages" id="Weigh_Axle_01">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          자체중량 및 총중량
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="innertable" height="90%" width="90%">
+            <thead>
+              <tr>
+                <th colspan="5" height="350px">
+                  <img src="./images/GroundPressure.png" width=80%>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5">축하중 분포</td>
+              </tr>
+              <tr>
+                <td width="28%">1축 하중</td>
+                <td width="5%">l</td>
+                <td width="15%" id="tumbler_distance_g"></td>
+                <td width="10%">(㎝)</td>
+                <td>$$F_1 = {W_T (L_2-X_T) \over L}.$$　</td>
+              </tr><tr>
+                <td width="28%">2축 하중</td>
+                <td width="5%">l</td>
+                <td width="15%" id="tumbler_distance_g"></td>
+                <td width="10%">(㎝)</td>
+                <td>$$F_2 = {W_T (L_1+X_T) \over L}.$$　</td>
+              </tr>
+              
+
+              <tr>
+                <td colspan="5">접지압 (퀵커플러 제외)</td>
+              </tr>
+
+              <tr>
+                <td>장비전중량</td>
+                <td>W</td>
+                <td id="gross_weight_woqc_g"></td>
+                <td>(㎏)</td>
+                <td>　</td>
+              </tr>
+              <tr>
+                <td>접지압</td>
+                <td>P</td>
+                <td id="ground_pressure_woqc_g"></td>
+                <td>(kg/㎠)</td>
+                <td>　 <br> </td>
+              </tr>
+            </tbody>
+
+
+          </table>
+
+
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+
+  <div class="pages" id="Travel_Speed">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          주행 속도
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>“최고속도”란 평탄하고 건조한 아스팔트 포장노면에서 운전중량 상태의 건설기계가 주행할 수 있는 최고속도를 말한다.</p>         
+          
+          <table width="90%" height="400px">
+            <thead>
+              <tr>
+                <th colspan="2">항목</th>
+                <th></th>
+                <th>단위</th>
+                <th>사양</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">펌프 유량</td>
+                <td>$$Q$$</td>
+                <td>l/min</td>
+                <td>234</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">모터 이론 용적</td>
+                <td>$$q$$</td>
+                <td>cc/rev</td>
+                <td>61</td>
+                <td>고속</td>
+              </tr>
+              <tr>
+                <td colspan="2">모터 용적 효율</td>
+                <td>$$\mu_{MV}$$</td>
+                <td>%</td>
+                <td>0.97</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td rowspan="2">감속비</td>
+                <td>Transmission</td>
+                <td>$$I_t$$</td>
+                <td></td>
+                <td>1.196</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Axle</td>
+                <td>$$I_r$$</td>
+                <td></td>
+                <td>16</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">타이어 동하중 반경</td>
+                <td>$$R$$</td>
+                <td>mm</td>
+                <td>519</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table width="90%" height="400px">
+            <thead>
+              <tr>
+                <th colspan="3" height="80px">주행속도 계산</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3">주행모터 축 회전수</td>
+              </tr>
+              <tr>
+                <td>$$SM_1 = {Q\cdot\mu_{MV} \over q}&nbsp;&nbsp;\times 1,000$$</td>
+                <td>$${234 \times 0.97 \over 61}&nbsp;&nbsp;\times 1,000$$</td>
+                <td>$$3721$$</td>
+              </tr>
+              <tr>
+                <td colspan="3">주행속도</td>
+              </tr>
+              <tr>
+                <td>$$V_1 = {SM_1\times2\pi R\times60 \over I_t \times I_r \times 10^3}$$</td>
+                <td>$${3721\times2\pi 0.519 \times 60 \over 1.2 \times 16 \times 10^3}$$</td>
+                <td>$$38$$</td>
+              </tr>
+            </tbody>
+
+          </table>
+          
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="Travel_Radius">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          주행 회전 반경
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>“최소회전반경”: 수평면에 놓인 건설기계가 선회할 때 바퀴 또는 기동륜의 중심이 그리는 원형 궤적 가운데 가장 큰 반지름을 가지는 궤적의 반지름</p>         
+          
+          <table width="90%" height="400px">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th></th>
+                <th>단위</th>
+                <th>사양</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>축간 거리</td>
+                <td>$$A$$</td>
+                <td>mm</td>
+                <td>2850</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>킹핀 (steering pin) 간 거리</td>
+                <td>$$L$$</td>
+                <td>mm</td>
+                <td>1566</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>킹핀 - 타이어 중심 거리</td>
+                <td>$$d$$</td>
+                <td>mm</td>
+                <td>329</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>외륜 최대 조향각</td>
+                <td>$$a$$</td>
+                <td>deg</td>
+                <td>27</td>
+                <td></td>
+              </tr>
+            </tbody>
+
+
+          </table>
+
+          <table width="90%" height="400px">
+            <thead>
+              <tr>
+                <th colspan="3" height="80px">회전반경 계산</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$$X = {A \over \sin\alpha}$$</td>
+                <td>$${2850 \over \sin27}$$</td>
+                <td>6278</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="4">외륜 최소 회전 반경</td>
+              </tr>
+              <tr>
+                <td>$$R = {X + d}$$</td>
+                <td>$${6278 + 329}$$</td>
+                <td>6607</td>
+                <td>슬립 경험치 추가하여 7000</td>
+              </tr>
+            </tbody>
+            
+
+          </table>
+          
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="Swing_Speed">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          선회 속도
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>선회 속도</p>         
+          
+          <table width="90%" height="400px">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th></th>
+                  <th>단위</th>
+                  <th>사양</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>펌프 유량</td>
+                  <td>$$Q$$</td>
+                  <td>l/min</td>
+                  <td>208</td>
+                  <td>선회 rpm</td>
+                </tr>
+                <tr>
+                  <td>모터이론용적</td>
+                  <td>$$q_m$$</td>
+                  <td>cc/rev</td>
+                  <td>142.8</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>감속기의 감속비</td>
+                  <td>$$i$$</td>
+                  <td></td>
+                  <td>18.675</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>모터용적효율</td>
+                  <td>$$\eta_{mv}$$</td>
+                  <td>%</td>
+                  <td>0.97</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>피니언 기어</td>
+                  <td>$$P_g$$</td>
+                  <td></td>
+                  <td>13</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>선회베어링 기어</td>
+                  <td>$$S_b$$</td>
+                  <td></td>
+                  <td>92</td>
+                  <td></td>
+                </tr>
+              </tbody>
+              
+
+          </table>
+
+          <table width="90%" height="400px">
+              <thead>
+                <tr>
+                  <th colspan="3">계산</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3">선회감속기 축 회전수 SM(rpm)</td>
+                </tr>
+                <tr>
+                  <td>$$SM = {Q \times \eta_{mv} \over q_m} \times 1000$$</td>
+                  <td>$${208 \times 0.97 \over 142.8} \times 1000$$</td>
+                  <td>1412.8</td>
+                </tr>
+                <tr>
+                  <td colspan="3">선회속도 S(rpm)</td>
+                </tr>
+                <tr>
+                  <td>$$S = {SM \over i} \times {P_g \over S_b}$$</td>
+                  <td>$${1412.8 \over 18.675} \times {13 \over 92}$$</td>
+                  <td>10.7</td>
+                </tr>
+              </tbody>
+          </table>
+          
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="Greadability_1">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          경사지 등판 및 제동 능력
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>굴착기는 100분의 25(무한궤도식 굴착기는 100분의 30을 말한다) 기울기의 견고한 건조 지면을 올라갈 수 있고, 정지상태를 유지할 수 있는 제동장치 및 제동장금장치를 갖추어야 한다.</p>         
+          
+          <table width="90%" height="300px">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th></th>
+                <th>단위</th>
+                <th>사양</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>전장비중량</td>
+                <td>$$W_T$$</td>
+                <td>kgf</td>
+                <td>21615</td>
+                <td>운전자 65kg</td>
+              </tr>
+              <tr>
+                <td>견인력</td>
+                <td>$$DP$$</td>
+                <td>kgf</td>
+                <td>12106</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>지면마찰계수</td>
+                <td>$$\mu$$</td>
+                <td></td>
+                <td>0.9</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>주행저항계수</td>
+                <td>$$\zeta$$</td>
+                <td></td>
+                <td>0.015</td>
+                <td></td>
+              </tr>
+            </tbody>
+            
+          </table>
+
+          <table width="90%" height="400px">
+            <thead>
+              <tr>
+                <th colspan="3">계산</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3">경사지에서 미끄러지지 않는 각도 </td>
+              </tr>
+              <tr>
+                <td>$$ \mu \cdot W_T \cdot \cos \theta_1 = W_T \cdot \sin \theta_1 $$<br>$$ \mu&nbsp;&nbsp;= \tan \theta_1 $$<br>$$ \theta_1 = {\tan^{-1}}\mu $$</td>
+                <td>$$ = {\tan^{-1}} 0.90<br>$$</td>
+                <td>42</td>
+              </tr>
+              <tr>
+                <td colspan="3">견인력에 의한 등판 능력</td>
+              </tr>
+              <tr>
+                <td>$$ DP - \xi W_T = W_T \cdot \sin \theta_2 $$<br>$$ \theta_2 = \sin^{-1}{{DP - \xi W_T}\over W_T} $$</td>
+                <td>$$ \sin^{-1}({{12106 - 0.015 × 21615 } \over 21615}) $$</td>
+                <td>33</td>
+              </tr>
+              <tr>
+                <td colspan="3">엔진 오일 팬에 의한 최대 허용 경사 각도</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>$$\theta_3 = 35°$$</td>
+                <td>35</td>
+              </tr>
+            </tbody>
+            
+          </table>
+          
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="Stability_Lateral">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          경사지 전도안정성
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>타이어식 굴착기는 견고한 땅 위에서 자체중량 상태로 좌우로 25도까지 기울여도 넘어지지 않는 구조이어야 한다. 이 경우 굴착기의 자세는 주행자세로 한다. </p>         
+          
+          <table width="90%" height="30%">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th></th>
+                  <th>단위</th>
+                  <th>사양</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>전장비중량</td>
+                  <td>$$W_T$$</td>
+                  <td>kgf</td>
+                  <td>21615</td>
+                  <td>운전자 65kg</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">무게중심</td>
+                  <td>$$(Y_T)$$</td>
+                  <td>㎜</td>
+                  <td>57</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>$$(Z_T)$$</td>
+                  <td>㎜</td>
+                  <td>1555</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>주행저항계수</td>
+                  <td>$$L_1$$</td>
+                  <td>㎜</td>
+                  <td>957</td>
+                  <td></td>
+                </tr>
+              </tbody>
+              
+            
+          </table>
+
+          <table width="90%" height="400px">
+              <thead>
+                <tr>
+                  <th colspan="3">계산</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3">최대 전도 각도 </td>
+                </tr>
+                <tr>
+                  <td>$$ \theta = \tan^{-1}({{L_1+Y_T}\over Z_T}) $$</td>
+                  <td>$$\tan^{-1}({{957+57}\over 1555})$$</td>
+                  <td>33.1</td>
+                </tr>
+              </tbody>
+          </table>
+          
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="bucket_creep">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          버켓 기울기의 변화량
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>굴착기는 최대작업반경 상태에서 버킷 끝단의 기울기의 변화량이 10분당 5도 이내 이어야 한다.  </p>         
+          
+          <table width="90%" height="30%">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>결과</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>시작 시 버켓 높이 (㎜)</td>
+                <td>H</td>
+                <td>1110</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>10분 뒤 버켓 높이 (㎜)</td>
+                <td>H'</td>
+                <td>1100</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>최대 작업 반경 (㎜)</td>
+                <td>L</td>
+                <td>10042</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>기울기 변화량 (°)</td>
+                <td></td>
+                <td>$$5.7 ×10^{-6}$$ </td>
+                <td>$$ \arctan({{H-H'}\over L}) $$</td>
+              </tr>
+            </tbody>
+            
+              
+            
+          </table>
+
+
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="brake_force">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          서비스 브레이크의 제동력
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>서비스 브레이크의 제동력은 아래와 같다  </p>         
+          
+          <table width="90%" height="30%">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th></th>
+                  <th>단위</th>
+                  <th>사양</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>장비 전중량</td>
+                  <td>$$W_T$$</td>
+                  <td>kg</td>
+                  <td>21615</td>
+                  <td>운전자 65kg</td>
+                </tr>
+                <tr>
+                  <td>브레이크 압력</td>
+                  <td>$$P$$</td>
+                  <td>bar</td>
+                  <td>80</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>기계효율</td>
+                  <td>$$\eta$$</td>
+                  <td></td>
+                  <td>0.9</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>허브 감속비</td>
+                  <td>$$i$$</td>
+                  <td></td>
+                  <td>6.4</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>브레이크 도크</td>
+                  <td>$$T_{SB}$$</td>
+                  <td>Nm</td>
+                  <td>30494</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>타이어 동하중 반경</td>
+                  <td>$$T_R$$</td>
+                  <td>m</td>
+                  <td>0.519</td>
+                  <td>실측값</td>
+                </tr>
+              </tbody>
+            
+          </table>
+          <table width="90%" height="30%">
+            <thead>
+              <tr>
+                <th colspan="3">계산</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3">AXLE 서비스 브레이크 제동력 $$F'_{SB}$$</td>
+              </tr>
+              <tr>
+                <td>$$F'_{SB} = {T_{SB}\over{9.8 \cdot T_R}}$$</td>
+                <td>$${30494 \over 9.8 × 0.519}$$</td>
+                <td>5995</td>
+              </tr>
+              <tr>
+                <td colspan="3">총 서비스 브레이크 제동력</td>
+              </tr>
+              <tr>
+                <td>$$F_{SB} = 2 × F'_{SB}$$</td>
+                <td>$$2 × 5995$$</td>
+                <td>11991</td>
+              </tr>
+              <tr>
+                <td colspan="3">제동 한계 각도</td>
+              </tr>
+              <tr>
+                <td>$$\theta = \sin^{-1}({F_{SB} \over W})$$</td>
+                <td>$$\sin^{-1}({11991 \over 21615})$$</td>
+                <td>33.7</td>
+              </tr>
+            </tbody>
+            </table>
+
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="braking_distance">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          서비스 브레이크의 제동 거리
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>서비스 브레이크의 제동거리는 아래와 같다  </p>         
+          
+          <table width="90%" height="30%">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th></th>
+                  <th>단위</th>
+                  <th>사양</th>
+                  <th>비고</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>장비 최고 속도</td>
+                  <td>$$V_0$$</td>
+                  <td>㎞/h</td>
+                  <td>38</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>규정 제동 속도</td>
+                  <td>$$V_1$$</td>
+                  <td>㎞/h</td>
+                  <td>32</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>공주 시간</td>
+                  <td>$$t$$</td>
+                  <td>sec</td>
+                  <td>0.5</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            
+          </table>
+          <table width="90%" height="30%">
+              <thead>
+                <tr>
+                  <th colspan="3">계산</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="3">제동력과 감가속</td>
+                </tr>
+                <tr>
+                  <td>$$\mu = {F_{SB} \over W} = {a \over b}$$<br>$$a = \mu \times g$$</td>
+                  <td>$$11990 \over 21615$$</td>
+                  <td>5.4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">최고 속도에서의 정지거리</td>
+                </tr>
+                <tr>
+                  <td>$$S = {{V_0^2 \over {2 \times a}} \times&nbsp;&nbsp;({1000 \over 3600}) ^2 + t \times V_0 \times ({1000 \over 3600})}$$</td>
+                  <td>$${{38^2 \over {2 \times 5.4}} \times&nbsp;&nbsp;({1000 \over 3600}) ^2 + 0.5 \times 38 \times ({1000 \over 3600})}$$</td>
+                  <td>15.6</td>
+                </tr>
+                <tr>
+                  <td colspan="3">규정 속도에서의 정지거리</td>
+                </tr>
+                <tr>
+                  <td>$$S = {{V_1^2 \over {2 \times a}} \times&nbsp;&nbsp;({1000 \over 3600}) ^2 + t \times V_1 \times ({1000 \over 3600})}$$</td>
+                  <td>$${{35^2 \over {2 \times 5.4}} \times&nbsp;&nbsp;({1000 \over 3600}) ^2 + 0.5 \times 35 \times ({1000 \over 3600})}$$</td>
+                  <td>11.8</td>
+                </tr>
+              </tbody>
+            </table>
+
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div class="pages" id="tire_load">
+    <table class="bordertable">
+      <tr class="borderheader">
+        <td height="30mm">
+          타이어의 부하율
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="head_description">          
+          <p>① 타이어 부하율은 다음 산식에 의하여 계산한다. 이 경우 겹 타이어인 타이어의 수는 2로 한다 ② 제1항에 따른 타이어 부하율은 최대적재중량 상태와 자체중량 상태에 대하여 각각 구한다.  ③ 건설기계의 타이어 부하율은 100퍼센트 이하이어야 한다. 다만, 최대적재중량 상태일 때 조향축 외의 축의 타이어의 경우에는 120퍼센트 이하이어야 한다. </p>         
+          
+          <table width="90%" height="30%">
+
+          </table>
+          <table width="90%" height="30%">
+
+            </table>
+
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.ckeditor.com/4.17.1/standard-all/ckeditor.js"></script>
+  <script>
+    // Turn off automatic editor creation first.
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline( 'editor1' );
+</script>
+  
+</body>
+</html>
